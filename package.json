@@ -1,0 +1,39 @@
+{
+  "name": "Chocopain-App-Backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "chocopain",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn clean && tsc && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "clean": "rimraf dist",
+    "dev": "nodemon src/index.ts"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "dotenv-safe": "^9.1.0",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "lodash": "^4.17.21",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.5",
+    "@types/dotenv-safe": "^8.1.6",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "eslint": "^9.16.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "nodemon": "^3.1.7",
+    "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "tscpaths": "^0.0.9",
+    "tslint": "^6.1.3",
+    "typescript": "^5.7.2"
+  }
+}
