@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import routes from '@api/router';
 import logger from '@common/logger';
 import { NODE_ENV } from '@config/environment';
-// import { ResponseMiddleware } from '@api/response.middleware';
+import { ResponseMiddleware } from './response.middleware';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 express.response.sendJson = function (data: object) {
@@ -26,6 +26,7 @@ export class ExpressServer {
         this.setupStandardMiddlewares(server);
         this.setupSecurityMiddlewares(server);
         this.configureRoutes(server);
+        this.setupErrorHandlers(server);
 
         this.httpServer = this.listen(server, port);
         this.server = server;
@@ -79,6 +80,17 @@ export class ExpressServer {
     }
 
     private configureRoutes(server: Express) {
-        server.use(routes);
+        server.use('/api/v1', routes);
+    }
+
+    private setupErrorHandlers(server: Express) {
+        // if error is not an instanceOf APIError, convert it.
+        server.use(ResponseMiddleware.converter);
+
+        // catch 404 and forward to error handler
+        server.use(ResponseMiddleware.notFound);
+
+        // error handler, send stacktrace only during development
+        server.use(ResponseMiddleware.handler);
     }
 }
