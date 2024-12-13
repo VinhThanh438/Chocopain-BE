@@ -1,5 +1,5 @@
 import { ExpressServer } from '@api/server';
-// import { DatabaseAdapter } from '@common/infrastructure/database.adapter';
+import { DatabaseAdapter } from '@common/infrastructure/database.adapter';
 // import { RedisAdapter } from '@common/infrastructure/redis.adapter';
 import { PORT } from '@config/environment';
 import logger from '@common/logger';
@@ -13,7 +13,7 @@ export class Application {
      * Implement create application, connecting db here
      */
     public static async createApplication(): Promise<ExpressServer> {
-        // await DatabaseAdapter.connect();
+        await DatabaseAdapter.connect();
         // await RedisAdapter.connect();
 
         // await RedisAdapter.createIndexForModeratorQueue();
@@ -65,7 +65,7 @@ export class Application {
         Promise.resolve()
             .then(() => express.kill())
             // .then(() => RedisAdapter.disconnect())
-            // .then(() => DatabaseAdapter.disconnect())
+            .then(() => DatabaseAdapter.disconnect())
             .then(() => {
                 logger.info('Shutdown complete, bye bye!');
                 process.exit(exitCode);
